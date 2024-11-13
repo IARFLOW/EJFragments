@@ -11,62 +11,116 @@
         android:layout_height="match_parent"
         android:padding="8dp">
 
+
         <TextView
             android:id="@+id/tvnombre"
-            android:layout_width="399dp"
-            android:layout_height="70dp"
-            android:layout_marginTop="40dp"
+            android:layout_width="125dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="56dp"
             android:text="TextView"
             android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/ivimagen" />
 
         <TextView
             android:id="@+id/tvsinopsis"
-            android:layout_width="395dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="48dp"
+            android:layout_width="349dp"
+            android:layout_height="47dp"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="3dp"
             android:text="TextView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvnombre" />
 
         <TextView
             android:id="@+id/tvgenero"
-            android:layout_width="391dp"
-            android:layout_height="63dp"
-            android:layout_marginTop="44dp"
+            android:layout_width="126dp"
+            android:layout_height="27dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="4dp"
             android:text="TextView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.147"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvsinopsis" />
 
         <TextView
             android:id="@+id/tvfecha"
-            android:layout_width="376dp"
-            android:layout_height="45dp"
-            android:layout_marginTop="28dp"
+            android:layout_width="124dp"
+            android:layout_height="27dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="8dp"
             android:text="TextView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.146"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvgenero" />
 
-
         <ImageView
             android:id="@+id/ivimagen"
-            android:layout_width="0dp"
-            android:layout_height="200dp"
-            android:layout_marginTop="56dp"
+            android:layout_width="81dp"
+            android:layout_height="72dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="112dp"
             android:contentDescription="ImagenView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            android:src="@mipmap/ic_launcher"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvfecha" />
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ListView
+            android:layout_width="258dp"
+            android:layout_height="89dp"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toEndOf="@+id/ivimagen"
+            app:layout_constraintTop_toTopOf="@+id/ivimagen" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="91dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="17dp"
+            android:text="TextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvfecha" />
+
+        <TextView
+            android:id="@+id/multilineEditText"
+            android:layout_width="164dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="20dp"
+            android:lines="4"
+            android:overScrollMode="always"
+            android:scrollbars="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="243dp"
+            android:layout_height="47dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="8dp"
+            android:scaleX="0.7"
+            android:scaleY="0.7"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="151dp"
+            android:layout_height="26dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/multilineEditText" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,6 +8,16 @@
     tools:context=".vista.acticidades.VistaPelicula">
 
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        app:theme="@style/ToolbarTheme"
+        app:title="Detalle de la Película"
+        app:titleTextColor="@android:color/black"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fcDetallePelicula"
         android:name="com.example.ejfragments.vista.fragmentos.DatosPelicula"

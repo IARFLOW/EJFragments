@@ -1,9 +1,11 @@
 package com.example.ejfragments.vista.acticidades;
 
 import android.os.Bundle;
+import android.view.Menu;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -18,11 +20,21 @@ public class VistaPelicula extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_vista_pelicula);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("Detalle de la Película");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Botón de retroceso
+        }
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+
 
         String nombre = getIntent().getStringExtra("nombre");
         String sinopsis = getIntent().getStringExtra("sinopsis");
@@ -36,4 +48,10 @@ public class VistaPelicula extends AppCompatActivity {
                 .commit();
 
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_acciones, menu);
+        return true;
+    }
+
 }
