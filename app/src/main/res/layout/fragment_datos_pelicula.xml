@@ -2,6 +2,8 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scroll_datos_pelicula"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
@@ -11,217 +13,233 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <!-- Imagen de la película -->
+        <!-- Imagen de la película (arriba, izquierda) -->
         <ImageView
-            android:id="@+id/ivImagenPeliculaDetalle"
+            android:id="@+id/ivimagen"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:contentDescription="ImagenView"
-            android:src="@mipmap/ic_launcher"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:contentDescription="@string/img_pelicula"
+            android:src="@mipmap/ic_launcher_round"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!-- Nombre del primer actor -->
         <TextView
             android:id="@+id/tvActor1Nombre"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:text="Matthew McConaughey"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/ivImagenPeliculaDetalle"
-            app:layout_constraintTop_toTopOf="@id/ivImagenPeliculaDetalle"
-            android:layout_marginStart="16dp"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivimagen"
+            app:layout_constraintTop_toTopOf="@id/ivimagen" />
 
         <!-- Fecha del primer actor -->
         <TextView
             android:id="@+id/tvActor1Fecha"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:text="04/11/1969"
             android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@id/tvActor1Nombre"
-            app:layout_constraintTop_toBottomOf="@id/tvActor1Nombre"
             app:layout_constraintEnd_toEndOf="@id/tvActor1Nombre"
-            android:layout_marginTop="4dp" />
+            app:layout_constraintStart_toStartOf="@id/tvActor1Nombre"
+            app:layout_constraintTop_toBottomOf="@id/tvActor1Nombre" />
 
         <!-- Nombre del segundo actor -->
         <TextView
             android:id="@+id/tvActor2Nombre"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="Anne Hathaway"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@id/tvActor1Nombre"
-            app:layout_constraintTop_toBottomOf="@id/tvActor1Fecha"
             app:layout_constraintEnd_toEndOf="@id/tvActor1Nombre"
-            android:layout_marginTop="16dp" />
+            app:layout_constraintStart_toStartOf="@id/tvActor1Nombre"
+            app:layout_constraintTop_toBottomOf="@id/tvActor1Fecha" />
 
         <!-- Fecha del segundo actor -->
         <TextView
             android:id="@+id/tvActor2Fecha"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:text="12/11/1982"
             android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@id/tvActor2Nombre"
-            app:layout_constraintTop_toBottomOf="@id/tvActor2Nombre"
             app:layout_constraintEnd_toEndOf="@id/tvActor2Nombre"
-            android:layout_marginTop="4dp" />
+            app:layout_constraintStart_toStartOf="@id/tvActor2Nombre"
+            app:layout_constraintTop_toBottomOf="@id/tvActor2Nombre" />
 
-        <!-- Título de la película -->
+        <!-- Título de la película (tvnombre) -->
+
+        <!-- Género (tvgenero) -->
+
         <TextView
-            android:id="@+id/tvTituloPeliculaDetalle"
+            android:id="@+id/tvnombre"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
             android:text="Interstellar"
-            android:textStyle="bold"
             android:textSize="20sp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/ivImagenPeliculaDetalle"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/ivimagen" />
 
-        <!-- Género -->
+        <!-- Sinopsis (tvsinopsis) -->
+
+        <!-- Fecha de lanzamiento (tvfecha) -->
         <TextView
-            android:id="@+id/tvGeneroPeliculaDetalle"
+            android:id="@+id/tvgenero"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
             android:text="Ciencia ficción"
             android:textSize="16sp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@id/tvTituloPeliculaDetalle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/tvnombre" />
 
-        <!-- Sinopsis -->
+        <!-- Label "Comentarios" -->
         <TextView
-            android:id="@+id/tvSinopsisPeliculaDetalle"
+            android:id="@+id/tvsinopsis"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="Un grupo de astronautas busca un nuevo hogar para la humanidad."
             android:textSize="16sp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@id/tvGeneroPeliculaDetalle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/tvgenero" />
 
-        <!-- Fecha de lanzamiento -->
+        <!-- Texto de Comentarios (tvComentarios) -->
         <TextView
-            android:id="@+id/tvFechaLanzamiento"
+            android:id="@+id/tvfecha"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="07/11/2014"
             android:textSize="16sp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@id/tvSinopsisPeliculaDetalle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/tvsinopsis" />
 
-        <!-- Label Comentarios -->
+        <!-- Botón Editar Comentarios -->
+
         <TextView
             android:id="@+id/tvLabelComentarios"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Comentarios"
-            android:textStyle="bold"
-            android:textSize="16sp"
             android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/tvFechaLanzamiento"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:text="Comentarios"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvfecha" />
 
-        <!-- Texto de Comentarios -->
         <TextView
             android:id="@+id/tvComentarios"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Nuevo comentario"
+            android:layout_width="251dp"
+            android:layout_height="59dp"
+            android:layout_marginTop="20dp"
+            android:text="Comentarios de la película\ndasdasdsad\n"
             android:textSize="16sp"
-            android:layout_marginTop="4dp"
-            app:layout_constraintTop_toBottomOf="@id/tvLabelComentarios"
+            app:layout_constraintEnd_toStartOf="@id/btEditarComentarios"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btEditarComentarios" />
+            app:layout_constraintTop_toBottomOf="@id/tvLabelComentarios" />
 
-        <!-- Botón Editar Comentarios -->
         <Button
             android:id="@+id/btEditarComentarios"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Editar"
             android:layout_marginStart="8dp"
-            app:layout_constraintTop_toTopOf="@id/tvComentarios"
+            android:text="Editar"
             app:layout_constraintBottom_toBottomOf="@id/tvComentarios"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvComentarios" />
 
-        <!-- Label Puntuación -->
+        <!-- Label "Puntuación" -->
+
+        <!-- RatingBar (ratingBarPelicula) -->
+
+        <!-- Label "Fecha Emisión" -->
+
+        <!-- Texto de la fecha elegida -->
+
         <TextView
             android:id="@+id/tvLabelPuntuacion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="Puntuación"
-            android:textStyle="bold"
             android:textSize="16sp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/tvComentarios"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvComentarios" />
 
-        <!-- RatingBar -->
         <RatingBar
             android:id="@+id/ratingBarPelicula"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:numStars="5"
             android:stepSize="0.5"
-            app:layout_constraintStart_toEndOf="@id/tvLabelPuntuacion"
-            app:layout_constraintTop_toTopOf="@id/tvLabelPuntuacion"
-            android:layout_marginStart="16dp" />
+            app:layout_constraintTop_toBottomOf="@+id/tvLabelPuntuacion"
+            tools:layout_editor_absoluteX="-2dp" />
 
-        <!-- Label Fecha Emisión -->
         <TextView
             android:id="@+id/tvLabelFechaEmision"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Fecha Emisión"
-            android:textStyle="bold"
-            android:textSize="16sp"
             android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/tvLabelPuntuacion"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:text="Fecha Emisión"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/ratingBarPelicula"
+            tools:layout_editor_absoluteX="3dp" />
 
-        <!-- Texto fecha elegida -->
+        <!-- Botón "Indicar" fecha -->
+
+        <!-- Botón "Guardar" (btGuardarPelicula) -->
+
         <TextView
             android:id="@+id/tvFechaElegida"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="18/10/2024 15:25"
+            android:layout_width="193dp"
+            android:layout_height="31dp"
+            android:layout_marginTop="3dp"
+            android:text="Ninguna indicada"
             android:textSize="16sp"
-            android:layout_marginStart="8dp"
-            app:layout_constraintStart_toEndOf="@id/tvLabelFechaEmision"
-            app:layout_constraintTop_toTopOf="@id/tvLabelFechaEmision"
-            app:layout_constraintEnd_toStartOf="@id/btIndicarFecha" />
+            app:layout_constraintTop_toBottomOf="@+id/tvLabelFechaEmision"
+            tools:layout_editor_absoluteX="1dp" />
 
-        <!-- Botón Indicar Fecha -->
         <Button
             android:id="@+id/btIndicarFecha"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="143dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="118dp"
+            android:layout_marginTop="16dp"
             android:text="Indicar"
-            android:layout_marginStart="8dp"
-            app:layout_constraintStart_toEndOf="@id/tvFechaElegida"
-            app:layout_constraintTop_toTopOf="@id/tvFechaElegida" />
+            app:layout_constraintStart_toEndOf="@+id/tvLabelFechaEmision"
+            app:layout_constraintTop_toBottomOf="@+id/ratingBarPelicula" />
 
-        <!-- Botón Guardar -->
         <Button
             android:id="@+id/btGuardarPelicula"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="57dp"
             android:text="Guardar"
-            android:layout_marginTop="24dp"
-            app:layout_constraintTop_toBottomOf="@id/tvFechaElegida"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/tvFechaElegida" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

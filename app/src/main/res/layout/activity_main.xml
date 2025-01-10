@@ -10,12 +10,11 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
         android:background="?attr/colorPrimary"
-        app:theme="@style/ToolbarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:theme="@style/ToolbarTheme"
         app:title="Listado de Películas"
         app:titleTextColor="@android:color/black" />
 
@@ -24,8 +23,10 @@
         android:name="com.example.ejfragments.vista.fragmentos.ListaPeliculas"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="@id/toolbar"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         tools:layout="@layout/fragment_lista_peliculas" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
