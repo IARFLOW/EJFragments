@@ -2,7 +2,8 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.EJFragments" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:statusBarColor">@android:color/white</item> <!-- Color blanco para la barra de estado -->
+        <item name="android:windowLightStatusBar">true</item> <!-- Texto oscuro en la barra de estado -->
     </style>
 
     <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Light">
