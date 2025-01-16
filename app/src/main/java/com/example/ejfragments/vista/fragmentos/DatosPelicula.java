@@ -1,5 +1,6 @@
 package com.example.ejfragments.vista.fragmentos;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,9 +9,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.ejfragments.R;
+import com.example.ejfragments.mock.ObtencionDatos;
+import com.example.ejfragments.modelo.entidades.Actor;
+import com.example.ejfragments.vista.acticidades.VistaActor;
+import com.example.ejfragments.vista.adaptadores.ActorAdapter;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,6 +34,9 @@ public class DatosPelicula extends Fragment {
     private static final String ARG_SINOPSIS = "sinopsis";
     private static final String ARG_GENERO = "genero";
     private static final String ARG_IMAGEN = "imagen";
+    private static final String ARG_ID_PELICULA = "id_pelicula";
+
+
 
     // TODO: Rename and change types of parameters
     private String nombre;
@@ -33,6 +44,7 @@ public class DatosPelicula extends Fragment {
     private String sinopsis;
     private String genero;
     private String imagen;
+    private int idPelicula;
 
     public DatosPelicula() {
         // Required empty public constructor
@@ -47,7 +59,7 @@ public class DatosPelicula extends Fragment {
      * @return A new instance of fragment DatosPelicula.
      */
     // TODO: Rename and change types and number of parameters
-    public static DatosPelicula newInstance(String nombre, String sinopsis, String genero, String fecha, String imagen) {
+    public static DatosPelicula newInstance(String nombre, String sinopsis, String genero, String fecha, String imagen,  int idPelicula) {
         DatosPelicula fragment = new DatosPelicula();
         Bundle args = new Bundle();
         args.putString(ARG_NOMBRE, nombre);
@@ -55,6 +67,7 @@ public class DatosPelicula extends Fragment {
         args.putString(ARG_GENERO, genero);
         args.putString(ARG_FECHA, fecha);
         args.putString(ARG_IMAGEN, imagen);
+        args.putInt(ARG_ID_PELICULA, idPelicula);
         fragment.setArguments(args);
         return fragment;
     }
@@ -68,6 +81,7 @@ public class DatosPelicula extends Fragment {
             genero = getArguments().getString(ARG_GENERO);
             fecha = getArguments().getString(ARG_FECHA);
             imagen = getArguments().getString(ARG_IMAGEN);
+            idPelicula = getArguments().getInt(ARG_ID_PELICULA);
         }
     }
 
@@ -81,12 +95,23 @@ public class DatosPelicula extends Fragment {
         TextView tvGenero = vistaFrag.findViewById(R.id.tvgenero);
         TextView tvFecha = vistaFrag.findViewById(R.id.tvfecha);
         ImageView ivImagen = vistaFrag.findViewById(R.id.ivimagen);
+        ListView listaActores = vistaFrag.findViewById(R.id.lista_actores);
+        listaActores.setOnItemClickListener((parent, view, position, id) -> {
+            Actor actorSeleccionado = (Actor) parent.getItemAtPosition(position);
+
+            Intent intent = new Intent(requireContext(), VistaActor.class);
+            intent.putExtra("id_actor", actorSeleccionado.getId());
+            startActivity(intent);
+        });
 
         tvNombre.setText(nombre);
         tvSinopsis.setText(sinopsis);
         tvGenero.setText(genero);
         tvFecha.setText(fecha);
 
+        ArrayList<Actor> actores = new ObtencionDatos().obtenerListadoActores(idPelicula);
+        ActorAdapter adapter = new ActorAdapter(requireContext(), actores);
+        listaActores.setAdapter(adapter);
 
 
         return vistaFrag;

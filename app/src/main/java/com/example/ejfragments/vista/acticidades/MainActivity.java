@@ -55,7 +55,8 @@ public class MainActivity extends AppCompatActivity implements ListaPeliculas.On
                     pelicula.getSinopsis(),
                     pelicula.getFecha().toString(),
                     pelicula.getGenero(),
-                    null
+                    null,
+                    pelicula.getId()
             );
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fcDetallePelicula, datosPeliculaFragment)
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements ListaPeliculas.On
             i.putExtra("sinopsis", pelicula.getSinopsis());
             i.putExtra("genero", pelicula.getGenero());
             i.putExtra("imagen", pelicula.getImagen());
+            i.putExtra("id", pelicula.getId());
             startActivity(i);
         }
     }
