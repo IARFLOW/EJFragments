@@ -1,67 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".vista.acticidades.VistaActor">
 
-    <!-- La Toolbar -->
+    <!-- Barra superior -->
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_actor"
-        android:layout_width="match_parent"
+        android:id="@+id/toolbarActor"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary" />
+        android:background="?attr/colorPrimary"
+        app:title="Detalle del Actor"
+        app:titleTextColor="@android:color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Contenido principal -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp">
+    <!-- Imagen del actor -->
+    <ImageView
+        android:id="@+id/ivActorFoto"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="@string/actor_photo_desc"
+        android:src="@mipmap/ic_launcher_round"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbarActor" />
 
-        <ImageView
-            android:id="@+id/ivActorFoto"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@mipmap/ic_launcher_round" />
+    <!-- Etiqueta "Nombre" -->
 
-        <!-- Nombre -->
-        <EditText
-            android:id="@+id/etActorNombre"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Nombre"
-            android:enabled="false" />
+    <!-- Campo de texto para el nombre -->
 
-        <!-- Fecha de nacimiento -->
-        <EditText
-            android:id="@+id/etActorFechaNac"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="F. Nacimiento"
-            android:enabled="false" />
+    <TextView
+        android:id="@+id/tvLabelNombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="72dp"
+        android:text="@string/label_nombre"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivActorFoto" />
 
-        <!-- Botones -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="16dp">
+    <EditText
+        android:id="@+id/etActorNombre"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:inputType="textPersonName"
+        android:hint="@string/hint_nombre_actor"
+        android:importantForAutofill="yes"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintStart_toStartOf="@id/tvLabelNombre"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvLabelNombre"
+        android:layout_marginTop="8dp" />
 
-            <Button
-                android:id="@+id/btGuardarActor"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Guardar"
-                android:enabled="false"/>
-        </LinearLayout>
+    <!-- Etiqueta "F. Nacimiento" -->
+    <TextView
+        android:id="@+id/tvLabelFecha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_fecha_nac"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/tvLabelNombre"
+        app:layout_constraintTop_toBottomOf="@id/etActorNombre"
+        android:layout_marginTop="24dp" />
 
-        <Button
-            android:id="@+id/btEditarActor"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Editar" />
-    </LinearLayout>
-</LinearLayout>
+    <!-- Campo de texto para la fecha de nacimiento -->
+    <EditText
+        android:id="@+id/etActorFecha"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:inputType="date"
+        android:hint="@string/hint_fecha_nac"
+        android:importantForAutofill="yes"
+        app:layout_constraintStart_toStartOf="@id/tvLabelFecha"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvLabelFecha"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp" />
+
+    <!-- Botón "Editar" -->
+
+    <!-- Botón "Guardar" (deshabilitado al principio) -->
+
+    <Button
+        android:id="@+id/btEditar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="96dp"
+        android:layout_marginTop="96dp"
+        android:text="@string/btn_editar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etActorFecha" />
+
+    <Button
+        android:id="@+id/btGuardar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="96dp"
+        android:enabled="false"
+        android:text="@string/btn_guardar"
+        app:layout_constraintStart_toEndOf="@id/btEditar"
+        app:layout_constraintTop_toBottomOf="@id/etActorFecha" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
