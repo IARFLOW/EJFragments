@@ -1,5 +1,6 @@
 package com.example.ejfragments.vista.fragmentos;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -8,6 +9,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -88,13 +91,16 @@ public class DatosPelicula extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View vistaFrag=inflater.inflate(R.layout.fragment_datos_pelicula, container, false);
+        View vistaFrag = inflater.inflate(R.layout.fragment_datos_pelicula, container, false);
 
         TextView tvNombre = vistaFrag.findViewById(R.id.tvnombre);
         TextView tvSinopsis = vistaFrag.findViewById(R.id.tvsinopsis);
         TextView tvGenero = vistaFrag.findViewById(R.id.tvgenero);
         TextView tvFecha = vistaFrag.findViewById(R.id.tvfecha);
         ImageView ivImagen = vistaFrag.findViewById(R.id.ivimagen);
+        TextView tvComentarios = vistaFrag.findViewById(R.id.tvComentarios);
+        Button btEditarComentarios = vistaFrag.findViewById(R.id.btEditarComentarios);
+
         ListView listaActores = vistaFrag.findViewById(R.id.lista_actores);
         listaActores.setOnItemClickListener((parent, view, position, id) -> {
             Actor actorSeleccionado = (Actor) parent.getItemAtPosition(position);
@@ -108,6 +114,26 @@ public class DatosPelicula extends Fragment {
         tvSinopsis.setText(sinopsis);
         tvGenero.setText(genero);
         tvFecha.setText(fecha);
+
+        // Configura el Listener del botón de comentarios
+        btEditarComentarios.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+            View dialogView = inflater.inflate(R.layout.dialog_comentarios, null);
+            EditText etComentariosDialog = dialogView.findViewById(R.id.etComentariosDialog);
+            etComentariosDialog.setText(tvComentarios.getText().toString());
+
+            builder.setView(dialogView);
+            builder.setTitle("Comentarios de la película");
+
+            builder.setPositiveButton("Aceptar", (dialog, which) -> {
+                String comentariosNuevos = etComentariosDialog.getText().toString();
+                tvComentarios.setText(comentariosNuevos);
+            });
+
+            builder.setNegativeButton("Cancelar", (dialogInterface, i) -> dialogInterface.dismiss());
+
+            builder.create().show();
+        });
 
         ArrayList<Actor> actores = new ObtencionDatos().obtenerListadoActores(idPelicula);
         ActorAdapter adapter = new ActorAdapter(requireContext(), actores);
