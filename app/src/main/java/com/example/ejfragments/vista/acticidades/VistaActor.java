@@ -1,6 +1,7 @@
 package com.example.ejfragments.vista.acticidades;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
@@ -81,5 +82,11 @@ public class VistaActor extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_acciones, menu);
+        return true;
     }
 }

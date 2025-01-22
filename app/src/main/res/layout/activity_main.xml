@@ -15,8 +15,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:theme="@style/ToolbarTheme"
-        app:title="Listado de Películas"
-        app:titleTextColor="@android:color/black" />
+        app:title="Listado de Películas"/>
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/main"

@@ -68,4 +68,6 @@ public class VistaPelicula extends AppCompatActivity {
         return true;
     }
 
+
+
 }

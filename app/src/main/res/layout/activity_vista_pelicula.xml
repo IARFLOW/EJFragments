@@ -15,7 +15,6 @@
         android:background="?attr/colorPrimary"
         app:theme="@style/ToolbarTheme"
         app:title="Detalle de la Película"
-        app:titleTextColor="@android:color/black"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.fragment.app.FragmentContainerView
