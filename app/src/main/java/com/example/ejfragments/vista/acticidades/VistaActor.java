@@ -78,17 +78,20 @@ public class VistaActor extends AppCompatActivity {
 
     // Flecha atrás
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_acciones, menu); // Solo inflar el menú, no añadir items manualmente
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
+        if (item.getItemId() == R.id.menu_salir) { // Usar el ID correcto del menú
+            ListadoActoresActivity.cerrarAplicacion(this);
+            return true;
+        } else if (item.getItemId() == android.R.id.home) { // Manejar la flecha de retroceso
             finish();
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_acciones, menu);
-        return true;
     }
 }

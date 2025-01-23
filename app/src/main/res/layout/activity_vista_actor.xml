@@ -20,12 +20,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Imagen del actor -->
-
-    <!-- Etiqueta "Nombre" -->
-
-    <!-- Campo de texto para el nombre -->
-
     <ImageView
         android:id="@+id/ivActorFoto"
         android:layout_width="80dp"
@@ -64,7 +58,6 @@
         app:layout_constraintStart_toStartOf="@id/tvLabelNombre"
         app:layout_constraintTop_toBottomOf="@id/tvLabelNombre" />
 
-    <!-- Etiqueta "F. Nacimiento" -->
     <TextView
         android:id="@+id/tvLabelFecha"
         android:layout_width="wrap_content"
@@ -76,7 +69,6 @@
         app:layout_constraintTop_toBottomOf="@id/etActorNombre"
         android:layout_marginTop="24dp" />
 
-    <!-- Campo de texto para la fecha de nacimiento -->
     <EditText
         android:id="@+id/etActorFecha"
         android:layout_width="363dp"
@@ -91,10 +83,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/tvLabelFecha"
         app:layout_constraintTop_toBottomOf="@id/tvLabelFecha" />
-
-    <!-- Botón "Editar" -->
-
-    <!-- Botón "Guardar" (deshabilitado al principio) -->
 
     <Button
         android:id="@+id/btEditar"

@@ -22,24 +22,20 @@ import java.util.Locale;
 
 public class SeleccionFechaActivity extends AppCompatActivity {
 
-    private CalendarView calendarView;
-    private Button btSeleccionHora, btAsignar;
-    private EditText etFecha, etHora; // Cambiado de TextView a EditText
-    private Calendar fechaHoraSeleccionada = Calendar.getInstance();
+    private EditText etFecha, etHora;
+    private final Calendar fechaHoraSeleccionada = Calendar.getInstance();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seleccion_fecha);
 
-        // Inicializar vistas
-        calendarView = findViewById(R.id.calendarView);
-        btSeleccionHora = findViewById(R.id.btSeleccionHora);
-        etFecha = findViewById(R.id.etFecha); // EditText para fecha
-        etHora = findViewById(R.id.etHora);   // EditText para hora
-        btAsignar = findViewById(R.id.btAsignar);
+        CalendarView calendarView = findViewById(R.id.calendarView);
+        Button btSeleccionHora = findViewById(R.id.btSeleccionHora);
+        etFecha = findViewById(R.id.etFecha);
+        etHora = findViewById(R.id.etHora);
+        Button btAsignar = findViewById(R.id.btAsignar);
 
-        // Configurar CalendarView
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
@@ -48,7 +44,6 @@ public class SeleccionFechaActivity extends AppCompatActivity {
             }
         });
 
-        // Configurar botón de hora
         btSeleccionHora.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,7 +51,6 @@ public class SeleccionFechaActivity extends AppCompatActivity {
             }
         });
 
-        // Configurar botón "Asignar"
         btAsignar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
