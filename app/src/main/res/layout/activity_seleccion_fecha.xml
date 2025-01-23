@@ -37,6 +37,7 @@
         android:layout_marginTop="16dp" />
 
     <!-- TextView para la fecha -->
+<!--    flow-->
     <TextView
         android:id="@+id/tvFechaSeleccionada"
         android:layout_width="wrap_content"
