@@ -21,13 +21,18 @@ import java.util.Locale;
 
 public class VistaActor extends AppCompatActivity {
 
-    private EditText etActorNombre, etActorFecha;
-    private Button btEditar, btGuardar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vista_actor);
+
+        ImageView ivFoto = findViewById(R.id.ivActorFoto);
+        EditText etActorNombre = findViewById(R.id.etActorNombre);
+        EditText etActorFecha = findViewById(R.id.etActorFecha);
+        Button btEditar = findViewById(R.id.btEditar);
+        Button btGuardar = findViewById(R.id.btGuardar);
 
         // Toolbar
         Toolbar toolbar = findViewById(R.id.toolbarActor);
@@ -37,11 +42,8 @@ public class VistaActor extends AppCompatActivity {
         }
 
         // Vistas
-        ImageView ivFoto = findViewById(R.id.ivActorFoto);
-        etActorNombre = findViewById(R.id.etActorNombre);
-        etActorFecha = findViewById(R.id.etActorFecha);
-        btEditar = findViewById(R.id.btEditar);
-        btGuardar = findViewById(R.id.btGuardar);
+
+
 
         // Recogemos el ID de actor
         int actorId = getIntent().getIntExtra("id_actor", -1);

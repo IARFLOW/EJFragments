@@ -27,6 +27,8 @@
         <activity android:name=".vista.acticidades.VistaActor" android:exported="false"/>
         <activity android:name=".vista.fragmentos.DatosPelicula" android:exported="false"/>
         <activity android:name=".vista.fragmentos.ListaPeliculas" android:exported="false"/>
+        <activity android:name=".vista.acticidades.SeleccionFechaActivity" android:exported="false"/>
+
 
 
     </application>

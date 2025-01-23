@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/vistaacotr"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".vista.acticidades.VistaActor">
@@ -51,17 +51,18 @@
 
     <EditText
         android:id="@+id/etActorNombre"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:enabled="false"
-        android:inputType="textPersonName"
-        android:hint="@string/hint_nombre_actor"
-        android:importantForAutofill="yes"
+        android:layout_width="363dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintStart_toStartOf="@id/tvLabelNombre"
+        android:enabled="false"
+        android:hint="Nombre del actor"
+        android:autofillHints="name"
+        android:importantForAutofill="yes"
+        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvLabelNombre"
-        android:layout_marginTop="8dp" />
+        app:layout_constraintStart_toStartOf="@id/tvLabelNombre"
+        app:layout_constraintTop_toBottomOf="@id/tvLabelNombre" />
 
     <!-- Etiqueta "F. Nacimiento" -->
     <TextView
@@ -78,17 +79,18 @@
     <!-- Campo de texto para la fecha de nacimiento -->
     <EditText
         android:id="@+id/etActorFecha"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:enabled="false"
-        android:inputType="date"
-        android:hint="@string/hint_fecha_nac"
-        android:importantForAutofill="yes"
-        app:layout_constraintStart_toStartOf="@id/tvLabelFecha"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvLabelFecha"
+        android:layout_width="363dp"
+        android:layout_height="54dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp" />
+        android:layout_marginEnd="16dp"
+        android:enabled="false"
+        android:hint="Fecha de nacimiento"
+        android:autofillHints="birtDate"
+        android:importantForAutofill="yes"
+        android:inputType="date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tvLabelFecha"
+        app:layout_constraintTop_toBottomOf="@id/tvLabelFecha" />
 
     <!-- Botón "Editar" -->
 

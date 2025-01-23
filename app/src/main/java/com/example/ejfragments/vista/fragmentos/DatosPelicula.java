@@ -1,5 +1,6 @@
 package com.example.ejfragments.vista.fragmentos;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,11 +14,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.ejfragments.R;
 import com.example.ejfragments.mock.ObtencionDatos;
 import com.example.ejfragments.modelo.entidades.Actor;
+//import com.example.ejfragments.vista.acticidades.SeleccionFechaActivity;
+import com.example.ejfragments.vista.acticidades.SeleccionFechaActivity;
 import com.example.ejfragments.vista.acticidades.VistaActor;
 import com.example.ejfragments.vista.adaptadores.ActorAdapter;
 
@@ -38,6 +42,7 @@ public class DatosPelicula extends Fragment {
     private static final String ARG_GENERO = "genero";
     private static final String ARG_IMAGEN = "imagen";
     private static final String ARG_ID_PELICULA = "id_pelicula";
+    private static final int REQUEST_CODE_FECHA = 1234;
 
 
 
@@ -48,6 +53,8 @@ public class DatosPelicula extends Fragment {
     private String genero;
     private String imagen;
     private int idPelicula;
+    private TextView tvFechaElegida;
+
 
     public DatosPelicula() {
         // Required empty public constructor
@@ -101,21 +108,17 @@ public class DatosPelicula extends Fragment {
         TextView tvComentarios = vistaFrag.findViewById(R.id.tvComentarios);
         Button btEditarComentarios = vistaFrag.findViewById(R.id.btEditarComentarios);
 
-        ListView listaActores = vistaFrag.findViewById(R.id.lista_actores);
-        listaActores.setOnItemClickListener((parent, view, position, id) -> {
-            Actor actorSeleccionado = (Actor) parent.getItemAtPosition(position);
+        // 1) Indicar Fecha
+        Button btIndicarFecha = vistaFrag.findViewById(R.id.btIndicarFecha);
+        tvFechaElegida = vistaFrag.findViewById(R.id.tvFechaElegida);
 
-            Intent intent = new Intent(requireContext(), VistaActor.class);
-            intent.putExtra("id_actor", actorSeleccionado.getId());
-            startActivity(intent);
-        });
-
+        // Asigna los datos
         tvNombre.setText(nombre);
         tvSinopsis.setText(sinopsis);
         tvGenero.setText(genero);
         tvFecha.setText(fecha);
 
-        // Configura el Listener del botón de comentarios
+        // Listener Editar Comentarios
         btEditarComentarios.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
             View dialogView = inflater.inflate(R.layout.dialog_comentarios, null);
@@ -135,11 +138,65 @@ public class DatosPelicula extends Fragment {
             builder.create().show();
         });
 
+        RatingBar ratingBar = vistaFrag.findViewById(R.id.ratingBarPelicula);
+        Button btGuardarPelicula = vistaFrag.findViewById(R.id.btGuardarPelicula);
+
+        btGuardarPelicula.setOnClickListener(v -> {
+            // 1. Obtén datos actuales
+            String fechaEmision = tvFechaElegida.getText().toString();
+            String comentarios = tvComentarios.getText().toString();
+            float rating = ratingBar.getRating();
+
+            // 2. Muestra AlertDialog con la info
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+            builder.setTitle("Datos a Guardar");
+
+            String mensaje = "Fecha de emision: " + fechaEmision + "\n"
+                    + "Comentarios: " + comentarios + "\n"
+                    + "Rating: " + rating;
+            builder.setMessage(mensaje);
+
+            builder.setPositiveButton("Ok", (dialog, which) -> {
+                // Si quieres “guardar” en tu modelo, hazlo aquí
+                dialog.dismiss();
+            });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        });
+
+        // Listener "Indicar": abre SeleccionFechaActivity
+        btIndicarFecha.setOnClickListener(v -> {
+           Intent i = new Intent(requireContext(), SeleccionFechaActivity.class);
+            startActivityForResult(i, REQUEST_CODE_FECHA);
+        });
+
+        // Lógica del ListView de actores
+        ListView listaActores = vistaFrag.findViewById(R.id.lista_actores);
+        listaActores.setOnItemClickListener((parent, view, position, id) -> {
+            Actor actorSeleccionado = (Actor) parent.getItemAtPosition(position);
+            Intent intent = new Intent(requireContext(), VistaActor.class);
+            intent.putExtra("id_actor", actorSeleccionado.getId());
+            startActivity(intent);
+        });
+
         ArrayList<Actor> actores = new ObtencionDatos().obtenerListadoActores(idPelicula);
         ActorAdapter adapter = new ActorAdapter(requireContext(), actores);
         listaActores.setAdapter(adapter);
 
-
         return vistaFrag;
+    }
+
+    // 2) Recibir el resultado de la SeleccionFechaActivity
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE_FECHA && resultCode == Activity.RESULT_OK) {
+            // Recogemos la fecha/hora
+            String fechaEmision = data.getStringExtra("fecha_emision");
+            // La mostramos en el TextView
+            tvFechaElegida.setText(fechaEmision);
+        }
     }
 }
