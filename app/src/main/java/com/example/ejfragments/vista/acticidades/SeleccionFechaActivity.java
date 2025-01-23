@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
-import android.widget.TextView;
+import android.widget.EditText;
 import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
@@ -24,7 +24,7 @@ public class SeleccionFechaActivity extends AppCompatActivity {
 
     private CalendarView calendarView;
     private Button btSeleccionHora, btAsignar;
-    private TextView tvFechaSeleccionada, tvHoraSeleccionada;
+    private EditText etFecha, etHora; // Cambiado de TextView a EditText
     private Calendar fechaHoraSeleccionada = Calendar.getInstance();
 
     @Override
@@ -35,8 +35,8 @@ public class SeleccionFechaActivity extends AppCompatActivity {
         // Inicializar vistas
         calendarView = findViewById(R.id.calendarView);
         btSeleccionHora = findViewById(R.id.btSeleccionHora);
-        tvFechaSeleccionada = findViewById(R.id.tvFechaSeleccionada);
-        tvHoraSeleccionada = findViewById(R.id.tvHoraSeleccionada);
+        etFecha = findViewById(R.id.etFecha); // EditText para fecha
+        etHora = findViewById(R.id.etHora);   // EditText para hora
         btAsignar = findViewById(R.id.btAsignar);
 
         // Configurar CalendarView
@@ -44,7 +44,7 @@ public class SeleccionFechaActivity extends AppCompatActivity {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 fechaHoraSeleccionada.set(year, month, dayOfMonth);
-                actualizarFechaEnTextView();
+                actualizarFechaEditText();
             }
         });
 
@@ -73,7 +73,7 @@ public class SeleccionFechaActivity extends AppCompatActivity {
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         fechaHoraSeleccionada.set(Calendar.HOUR_OF_DAY, hourOfDay);
                         fechaHoraSeleccionada.set(Calendar.MINUTE, minute);
-                        actualizarHoraEnTextView();
+                        actualizarHoraEditText();
                     }
                 },
                 fechaHoraSeleccionada.get(Calendar.HOUR_OF_DAY),
@@ -83,14 +83,14 @@ public class SeleccionFechaActivity extends AppCompatActivity {
         timePickerDialog.show();
     }
 
-    private void actualizarFechaEnTextView() {
+    private void actualizarFechaEditText() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-        tvFechaSeleccionada.setText(sdf.format(fechaHoraSeleccionada.getTime()));
+        etFecha.setText(sdf.format(fechaHoraSeleccionada.getTime())); // Actualizar EditText
     }
 
-    private void actualizarHoraEnTextView() {
+    private void actualizarHoraEditText() {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
-        tvHoraSeleccionada.setText(sdf.format(fechaHoraSeleccionada.getTime()));
+        etHora.setText(sdf.format(fechaHoraSeleccionada.getTime())); // Actualizar EditText
     }
 
     private void devolverFechaHora() {

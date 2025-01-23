@@ -10,5 +10,7 @@
     <string name="btn_editar">Editar</string>
     <string name="btn_guardar">Guardar</string>
     <string name="actor_photo_desc">Foto del actor</string>
+    <string name="label_fecha">Fecha</string>
+    <string name="label_hora">Hora\n</string>
 
 </resources>
