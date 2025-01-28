@@ -1,5 +1,6 @@
 package com.example.ejfragments.vista.acticidades;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,7 +23,6 @@ import java.util.Locale;
 public class VistaActor extends AppCompatActivity {
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +42,6 @@ public class VistaActor extends AppCompatActivity {
         }
 
         // Vistas
-
 
 
         // Recogemos el ID de actor
@@ -85,13 +84,37 @@ public class VistaActor extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.menu_salir) { // Usar el ID correcto del menú
+        int id = item.getItemId();
+
+        if (id == R.id.menu_actores) {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("mostrar", "actores");
+            startActivity(intent);
+            return true;
+        } else if (id == R.id.menu_peliculas) {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("mostrar", "peliculas");
+            startActivity(intent);
+            return true;
+        } else if (id == R.id.menu_salir) {
+            ListadoActoresActivity.cerrarAplicacion(this);
+
+            Toast.makeText(this, "Has pulsado SALIR de verdad", Toast.LENGTH_SHORT).show();
             ListadoActoresActivity.cerrarAplicacion(this);
             return true;
-        } else if (item.getItemId() == android.R.id.home) { // Manejar la flecha de retroceso
+
+
+
+
+
+        } else if (id == android.R.id.home) {
+            // Flecha atrás
             finish();
             return true;
         }
+
+
         return super.onOptionsItemSelected(item);
     }
+
 }

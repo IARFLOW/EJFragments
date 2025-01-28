@@ -29,4 +29,5 @@ public class ListadoActoresActivity extends AppCompatActivity {
         intent.putExtra("EXIT", true);
         context.startActivity(intent);
     }
+
 }

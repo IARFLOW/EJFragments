@@ -32,12 +32,44 @@ public class MainActivity extends AppCompatActivity implements ListaPeliculas.On
             getSupportActionBar().setTitle("Listado de Películas");
         }
 
+        // LEER el extra “mostrar”
+        String mostrar = getIntent().getStringExtra("mostrar");
+        if ("actores".equals(mostrar)) {
+            mostrarListaActores();
+            setToolbarTitle("Listado de Actores");
+        } else if ("peliculas".equals(mostrar)) {
+            mostrarListaPeliculas();
+            setToolbarTitle("Listado de Películas");
+        } else {
+            // si no viene nada, por defecto sale la lista de Películas
+            mostrarListaPeliculas();
+        }
+
+
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+
     }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent); // Actualizamos el intent asociado a esta Activity
+        String mostrar = intent.getStringExtra("mostrar");
+        if ("actores".equals(mostrar)) {
+            mostrarListaActores();
+            setToolbarTitle("Listado de Actores");
+        } else if ("peliculas".equals(mostrar)) {
+            mostrarListaPeliculas();
+            setToolbarTitle("Listado de Películas");
+        }
+    }
+
 
     public void setToolbarTitle(String title) {
         if (getSupportActionBar() != null) {

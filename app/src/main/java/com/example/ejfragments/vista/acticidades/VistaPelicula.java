@@ -1,8 +1,10 @@
 package com.example.ejfragments.vista.acticidades;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -55,12 +57,37 @@ public class VistaPelicula extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
+        int id = item.getItemId();
+
+        if (id == R.id.menu_actores) {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("mostrar", "actores");
+            startActivity(intent);
+            return true;
+        } else if (id == R.id.menu_peliculas) {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("mostrar", "peliculas");
+            startActivity(intent);
+            return true;
+
+        } else if (id == R.id.menu_salir) {
+            ListadoActoresActivity.cerrarAplicacion(this);
+
+            Toast.makeText(this, "Has pulsado SALIR de verdad", Toast.LENGTH_SHORT).show();
+            ListadoActoresActivity.cerrarAplicacion(this);
+            return true;
+
+
+
+        } else if (id == android.R.id.home) {
+            // Flecha atrás
             finish();
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
