@@ -74,7 +74,6 @@ public class VistaPelicula extends AppCompatActivity {
             ListadoActoresActivity.cerrarAplicacion(this);
 
             Toast.makeText(this, "Has pulsado SALIR de verdad", Toast.LENGTH_SHORT).show();
-            ListadoActoresActivity.cerrarAplicacion(this);
             return true;
 
 
