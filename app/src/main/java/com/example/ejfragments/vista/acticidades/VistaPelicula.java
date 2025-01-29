@@ -29,7 +29,7 @@ public class VistaPelicula extends AppCompatActivity {
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle("Detalle de la Película");
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Botón de retroceso
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -37,7 +37,6 @@ public class VistaPelicula extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
 
 
         String nombre = getIntent().getStringExtra("nombre");
@@ -48,7 +47,7 @@ public class VistaPelicula extends AppCompatActivity {
         int idPelicula = getIntent().getIntExtra("id", -1);
 
 
-        DatosPelicula datosPeliculaFragment = DatosPelicula.newInstance(nombre, sinopsis, genero, fecha, imagen,idPelicula);
+        DatosPelicula datosPeliculaFragment = DatosPelicula.newInstance(nombre, sinopsis, genero, fecha, imagen, idPelicula);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fcDetallePelicula, datosPeliculaFragment)
                 .commit();
@@ -71,15 +70,9 @@ public class VistaPelicula extends AppCompatActivity {
             return true;
 
         } else if (id == R.id.menu_salir) {
-            ListadoActoresActivity.cerrarAplicacion(this);
-
-            Toast.makeText(this, "Has pulsado SALIR de verdad", Toast.LENGTH_SHORT).show();
-            return true;
-
-
+            finishAffinity(); 
 
         } else if (id == android.R.id.home) {
-            // Flecha atrás
             finish();
             return true;
         }
@@ -93,7 +86,6 @@ public class VistaPelicula extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_acciones, menu);
         return true;
     }
-
 
 
 }

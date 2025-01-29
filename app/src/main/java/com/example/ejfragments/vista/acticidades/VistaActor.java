@@ -34,51 +34,40 @@ public class VistaActor extends AppCompatActivity {
         Button btEditar = findViewById(R.id.btEditar);
         Button btGuardar = findViewById(R.id.btGuardar);
 
-        // Toolbar
         Toolbar toolbar = findViewById(R.id.toolbarActor);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        // Vistas
-
-
-        // Recogemos el ID de actor
         int actorId = getIntent().getIntExtra("id_actor", -1);
         Actor actor = new ObtencionDatos().obtenerActor(actorId);
 
         if (actor != null) {
-            // Formatear la fecha
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
             String fechaFormateada = sdf.format(actor.getFechaNacimiento());
-            // Rellenamos los campos
             etActorNombre.setText(actor.getNombre());
             etActorFecha.setText(fechaFormateada);
         }
 
-        // Botón Editar: habilita los campos y el botón Guardar
         btEditar.setOnClickListener(view -> {
             etActorNombre.setEnabled(true);
             etActorFecha.setEnabled(true);
             btGuardar.setEnabled(true);
         });
 
-        // Botón Guardar: deshabilita de nuevo y simula guardado
         btGuardar.setOnClickListener(view -> {
             etActorNombre.setEnabled(false);
             etActorFecha.setEnabled(false);
             btGuardar.setEnabled(false);
 
-            // Aquí podrías “actualizar” el mock o lo que quieras
             Toast.makeText(this, "Datos guardados", Toast.LENGTH_SHORT).show();
         });
     }
 
-    // Flecha atrás
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_acciones, menu); // Solo inflar el menú, no añadir items manualmente
+        getMenuInflater().inflate(R.menu.menu_acciones, menu);
         return true;
     }
 
@@ -97,17 +86,8 @@ public class VistaActor extends AppCompatActivity {
             startActivity(intent);
             return true;
         } else if (id == R.id.menu_salir) {
-            ListadoActoresActivity.cerrarAplicacion(this);
-
-            Toast.makeText(this, "Has pulsado SALIR de verdad", Toast.LENGTH_SHORT).show();
-            return true;
-
-
-
-
-
+            finishAffinity();
         } else if (id == android.R.id.home) {
-            // Flecha atrás
             finish();
             return true;
         }

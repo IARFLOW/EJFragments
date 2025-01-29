@@ -4,13 +4,10 @@ import android.app.Activity;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
-import android.widget.TimePicker;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -36,39 +33,23 @@ public class SeleccionFechaActivity extends AppCompatActivity {
         etHora = findViewById(R.id.etHora);
         Button btAsignar = findViewById(R.id.btAsignar);
 
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                fechaHoraSeleccionada.set(year, month, dayOfMonth);
-                actualizarFechaEditText();
-            }
+        calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
+            fechaHoraSeleccionada.set(year, month, dayOfMonth);
+            actualizarFechaEditText();
         });
 
-        btSeleccionHora.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mostrarTimePickerDialog();
-            }
-        });
+        btSeleccionHora.setOnClickListener(v -> mostrarTimePickerDialog());
 
-        btAsignar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                devolverFechaHora();
-            }
-        });
+        btAsignar.setOnClickListener(v -> devolverFechaHora());
     }
 
     private void mostrarTimePickerDialog() {
         TimePickerDialog timePickerDialog = new TimePickerDialog(
                 this,
-                new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        fechaHoraSeleccionada.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                        fechaHoraSeleccionada.set(Calendar.MINUTE, minute);
-                        actualizarHoraEditText();
-                    }
+                (view, hourOfDay, minute) -> {
+                    fechaHoraSeleccionada.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                    fechaHoraSeleccionada.set(Calendar.MINUTE, minute);
+                    actualizarHoraEditText();
                 },
                 fechaHoraSeleccionada.get(Calendar.HOUR_OF_DAY),
                 fechaHoraSeleccionada.get(Calendar.MINUTE),
@@ -79,12 +60,12 @@ public class SeleccionFechaActivity extends AppCompatActivity {
 
     private void actualizarFechaEditText() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-        etFecha.setText(sdf.format(fechaHoraSeleccionada.getTime())); // Actualizar EditText
+        etFecha.setText(sdf.format(fechaHoraSeleccionada.getTime()));
     }
 
     private void actualizarHoraEditText() {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
-        etHora.setText(sdf.format(fechaHoraSeleccionada.getTime())); // Actualizar EditText
+        etHora.setText(sdf.format(fechaHoraSeleccionada.getTime()));
     }
 
     private void devolverFechaHora() {

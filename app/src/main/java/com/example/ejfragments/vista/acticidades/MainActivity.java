@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements ListaPeliculas.On
             getSupportActionBar().setTitle("Listado de Películas");
         }
 
-        // LEER el extra “mostrar”
         String mostrar = getIntent().getStringExtra("mostrar");
         if ("actores".equals(mostrar)) {
             mostrarListaActores();
@@ -41,10 +40,8 @@ public class MainActivity extends AppCompatActivity implements ListaPeliculas.On
             mostrarListaPeliculas();
             setToolbarTitle("Listado de Películas");
         } else {
-            // si no viene nada, por defecto sale la lista de Películas
             mostrarListaPeliculas();
         }
-
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -59,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements ListaPeliculas.On
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        setIntent(intent); // Actualizamos el intent asociado a esta Activity
+        setIntent(intent);
         String mostrar = intent.getStringExtra("mostrar");
         if ("actores".equals(mostrar)) {
             mostrarListaActores();
@@ -74,6 +71,16 @@ public class MainActivity extends AppCompatActivity implements ListaPeliculas.On
     public void setToolbarTitle(String title) {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(title);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (getSupportFragmentManager().findFragmentById(R.id.main) instanceof ListaPeliculas) {
+            setToolbarTitle("Listado de Películas");
+        } else if (getSupportFragmentManager().findFragmentById(R.id.main) instanceof ListaActores) {
+            setToolbarTitle("Listado de Actores");
         }
     }
 
@@ -129,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements ListaPeliculas.On
             realizarSincronizacion();
             return true;
         } else if (id == R.id.menu_salir) {
-            finish();
+            finishAffinity();
             return true;
         }
 
@@ -152,3 +159,4 @@ public class MainActivity extends AppCompatActivity implements ListaPeliculas.On
                 .commit();
     }
 }
+

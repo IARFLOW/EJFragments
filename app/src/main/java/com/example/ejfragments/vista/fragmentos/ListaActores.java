@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -29,13 +28,11 @@ public class ListaActores extends Fragment {
 
         ListView listView = view.findViewById(R.id.lista_actores);
 
-        // Usar el adaptador personalizado
         ObtencionDatos datos = new ObtencionDatos();
         ArrayList<Actor> listaDeActores = datos.obtenerListadoActores(0);
         ActorAdapter adapter = new ActorAdapter(requireContext(), listaDeActores);
         listView.setAdapter(adapter);
 
-        // Listener para selección de actores
         listView.setOnItemClickListener((parent, view1, position, id) -> {
             Actor actorSeleccionado = (Actor) parent.getItemAtPosition(position);
             Intent intent = new Intent(getActivity(), VistaActor.class);

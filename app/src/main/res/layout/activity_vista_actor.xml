@@ -8,7 +8,6 @@
     android:layout_height="match_parent"
     tools:context=".vista.acticidades.VistaActor">
 
-    <!-- Barra superior -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarActor"
         android:layout_width="0dp"
