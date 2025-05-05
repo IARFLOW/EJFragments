@@ -3,6 +3,8 @@ package com.example.ejfragments.vista.fragmentos;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -19,7 +21,9 @@ import android.widget.TextView;
 
 import com.example.ejfragments.R;
 import com.example.ejfragments.mock.ObtencionDatos;
+import com.example.ejfragments.modelo.database.AppDatabase;
 import com.example.ejfragments.modelo.entidades.Actor;
+import com.example.ejfragments.modelo.entidades.PeliculaRatingEntity;
 import com.example.ejfragments.vista.acticidades.SeleccionFechaActivity;
 import com.example.ejfragments.vista.acticidades.VistaActor;
 import com.example.ejfragments.vista.adaptadores.ActorAdapter;
@@ -42,6 +46,8 @@ public class DatosPelicula extends Fragment {
     private static final String ARG_IMAGEN = "imagen";
     private static final String ARG_ID_PELICULA = "id_pelicula";
     private static final int REQUEST_CODE_FECHA = 1234;
+    private static final String PREF_NAME = "PeliculaPrefs";
+    private static final String KEY_COMENTARIO_PREFIX = "comentario_";
 
 
 
@@ -53,7 +59,8 @@ public class DatosPelicula extends Fragment {
     private String imagen;
     private int idPelicula;
     private TextView tvFechaElegida;
-
+    private SharedPreferences sharedPreferences;
+    private AppDatabase database;
 
     public DatosPelicula() {
         // Required empty public constructor
@@ -84,6 +91,8 @@ public class DatosPelicula extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPreferences = requireContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        database = AppDatabase.getInstance(requireContext());
         if (getArguments() != null) {
             nombre = getArguments().getString(ARG_NOMBRE);
             sinopsis = getArguments().getString(ARG_SINOPSIS);
@@ -105,11 +114,15 @@ public class DatosPelicula extends Fragment {
         TextView tvFecha = vistaFrag.findViewById(R.id.tvfecha);
         ImageView ivImagen = vistaFrag.findViewById(R.id.ivimagen);
         TextView tvComentarios = vistaFrag.findViewById(R.id.tvComentarios);
+        String comentarioGuardado = sharedPreferences.getString(KEY_COMENTARIO_PREFIX + idPelicula, "");
+        if (!comentarioGuardado.isEmpty()) {
+            tvComentarios.setText(comentarioGuardado);
+        }
         Button btEditarComentarios = vistaFrag.findViewById(R.id.btEditarComentarios);
 
         Button btIndicarFecha = vistaFrag.findViewById(R.id.btIndicarFecha);
         tvFechaElegida = vistaFrag.findViewById(R.id.tvFechaElegida);
-
+        cargarPuntuacionYFecha();
         tvNombre.setText(nombre);
         tvSinopsis.setText(sinopsis);
         tvGenero.setText(genero);
@@ -127,6 +140,13 @@ public class DatosPelicula extends Fragment {
             builder.setPositiveButton("Aceptar", (dialog, which) -> {
                 String comentariosNuevos = etComentariosDialog.getText().toString();
                 tvComentarios.setText(comentariosNuevos);
+
+                // Guardar comentario en SharedPreferences
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(KEY_COMENTARIO_PREFIX + idPelicula, comentariosNuevos);
+                editor.apply();
+
+                android.widget.Toast.makeText(requireContext(), "Comentario guardado", android.widget.Toast.LENGTH_SHORT).show();
             });
 
             builder.setNegativeButton("Cancelar", (dialogInterface, i) -> dialogInterface.dismiss());
@@ -141,6 +161,14 @@ public class DatosPelicula extends Fragment {
             String fechaEmision = tvFechaElegida.getText().toString();
             String comentarios = tvComentarios.getText().toString();
             float rating = ratingBar.getRating();
+
+            // Guardar comentario en SharedPreferences
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(KEY_COMENTARIO_PREFIX + idPelicula, comentarios);
+            editor.apply();
+
+            // Guardar puntuación y fecha en Room
+            guardarPuntuacionYFecha(rating, fechaEmision);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
             builder.setTitle("Datos a Guardar");
@@ -186,5 +214,76 @@ public class DatosPelicula extends Fragment {
             String fechaEmision = data.getStringExtra("fecha_emision");
             tvFechaElegida.setText(fechaEmision);
         }
+    }
+    // Método para cargar puntuación y fecha desde Room
+    // Método para cargar puntuación y fecha desde Room
+    private void cargarPuntuacionYFecha() {
+        // Importante: las operaciones de base de datos no deben hacerse en el hilo principal
+        new Thread(() -> {
+            try {
+                // Intentar obtener datos de la base de datos
+                final PeliculaRatingEntity rating = database.peliculaRatingDao().getRatingByPeliculaId(idPelicula);
+
+                // Si encontramos datos, actualizar la UI en el hilo principal
+                if (rating != null) {
+                    requireActivity().runOnUiThread(() -> {
+                        try {
+                            RatingBar ratingBar = getView().findViewById(R.id.ratingBarPelicula);
+
+                            // Actualizar puntuación
+                            if (rating.getPuntuacion() > 0) {
+                                ratingBar.setRating(rating.getPuntuacion());
+                            }
+
+                            // Actualizar fecha de emisión si existe
+                            if (rating.getFechaEmision() != null) {
+                                java.util.Date fechaEmision = new java.util.Date(rating.getFechaEmision());
+                                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm", java.util.Locale.getDefault());
+                                tvFechaElegida.setText(sdf.format(fechaEmision));
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    });
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+    } // Aquí debe terminar el método cargarPuntuacionYFecha
+
+    // Método para guardar puntuación y fecha en Room
+    private void guardarPuntuacionYFecha(float rating, String fechaEmisionStr) {
+        new Thread(() -> {
+            try {
+                // Convertir texto de fecha a objeto Date si hay una fecha válida
+                Long timestampFecha = null;
+                if (fechaEmisionStr != null && !fechaEmisionStr.equals("Ninguna indicada") && !fechaEmisionStr.isEmpty()) {
+                    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm", java.util.Locale.getDefault());
+                    java.util.Date fechaEmision = sdf.parse(fechaEmisionStr);
+                    if (fechaEmision != null) {
+                        timestampFecha = fechaEmision.getTime();
+                    }
+                }
+
+                // Crear la entidad para guardar
+                com.example.ejfragments.modelo.entidades.PeliculaRatingEntity ratingEntity =
+                        new com.example.ejfragments.modelo.entidades.PeliculaRatingEntity(idPelicula, rating, timestampFecha);
+
+                // Guardar en la base de datos
+                database.peliculaRatingDao().insert(ratingEntity);
+
+                // Notificar en el hilo principal
+                requireActivity().runOnUiThread(() ->
+                        android.widget.Toast.makeText(requireContext(), "Puntuación y fecha guardadas", android.widget.Toast.LENGTH_SHORT).show()
+                );
+            } catch (java.text.ParseException e) {
+                e.printStackTrace();
+                // Notificar error en el hilo principal
+                requireActivity().runOnUiThread(() ->
+                        android.widget.Toast.makeText(requireContext(), "Error al guardar fecha", android.widget.Toast.LENGTH_SHORT).show()
+                );
+            }
+        }).start();
     }
 }
