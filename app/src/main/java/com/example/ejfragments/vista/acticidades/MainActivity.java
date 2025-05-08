@@ -88,29 +88,34 @@ public class MainActivity extends AppCompatActivity implements ListaPeliculas.On
     public void OnPeliculasSelecionadasListener(Pelicula pelicula) {
         boolean esTablet = (getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE;
 
-        if (esTablet) {
-            DatosPelicula datosPeliculaFragment = DatosPelicula.newInstance(
-                    pelicula.getNombre(),
-                    pelicula.getSinopsis(),
-                    pelicula.getFecha().toString(),
-                    pelicula.getGenero(),
-                    null,
-                    pelicula.getId()
-            );
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fcDetallePelicula, datosPeliculaFragment)
-                    .commit();
+        try {
+            if (esTablet) {
+                DatosPelicula datosPeliculaFragment = DatosPelicula.newInstance(
+                        pelicula.getNombre(),
+                        pelicula.getSinopsis(),
+                        pelicula.getGenero(),
+                        pelicula.getFecha() != null ? pelicula.getFecha().toString() : "",
+                        pelicula.getImagen(),
+                        pelicula.getId()
+                );
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fcDetallePelicula, datosPeliculaFragment)
+                        .commit();
 
-        } else {
-            setToolbarTitle("Detalle de la Película");
-            Intent i = new Intent(MainActivity.this, VistaPelicula.class);
-            i.putExtra("nombre", pelicula.getNombre());
-            i.putExtra("fecha", pelicula.getFecha().toString());
-            i.putExtra("sinopsis", pelicula.getSinopsis());
-            i.putExtra("genero", pelicula.getGenero());
-            i.putExtra("imagen", pelicula.getImagen());
-            i.putExtra("id", pelicula.getId());
-            startActivity(i);
+            } else {
+                setToolbarTitle("Detalle de la Película");
+                Intent i = new Intent(MainActivity.this, VistaPelicula.class);
+                i.putExtra("nombre", pelicula.getNombre());
+                i.putExtra("fecha", pelicula.getFecha() != null ? pelicula.getFecha().toString() : "");
+                i.putExtra("sinopsis", pelicula.getSinopsis());
+                i.putExtra("genero", pelicula.getGenero());
+                i.putExtra("imagen", pelicula.getImagen());
+                i.putExtra("id", pelicula.getId());
+                startActivity(i);
+            }
+        } catch (Exception e) {
+            Toast.makeText(this, "Error al mostrar detalle: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            e.printStackTrace();
         }
     }
 
@@ -148,15 +153,25 @@ public class MainActivity extends AppCompatActivity implements ListaPeliculas.On
     }
 
     private void mostrarListaPeliculas() {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.main, new ListaPeliculas())
-                .commit();
+        try {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.main, new ListaPeliculas())
+                    .commit();
+        } catch (Exception e) {
+            Toast.makeText(this, "Error al cargar lista de películas: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
     }
 
     private void mostrarListaActores() {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.main, new ListaActores())
-                .commit();
+        try {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.main, new ListaActores())
+                    .commit();
+        } catch (Exception e) {
+            Toast.makeText(this, "Error al cargar lista de actores: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
     }
 }
 

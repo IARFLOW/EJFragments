@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".vista.fragmentos.ListaPeliculas">
 
-    <!-- TODO: Update blank fragment layout -->
     <ListView
         android:id="@+id/lista_pelicula"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        android:scrollbarStyle="outsideOverlay"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp"
+        android:fadeScrollbars="false" />
 
-</FrameLayout>
+</RelativeLayout>

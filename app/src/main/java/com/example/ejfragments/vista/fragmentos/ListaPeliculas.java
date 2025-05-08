@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.example.ejfragments.R;
-import com.example.ejfragments.mock.ObtencionDatos;
+import com.example.ejfragments.api.ServicioREST;
 import com.example.ejfragments.modelo.entidades.Pelicula;
 import com.example.ejfragments.vista.adaptadores.PeliculaAdapter;
 
@@ -96,19 +96,68 @@ public class ListaPeliculas extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_lista_peliculas, container, false);
-        ListView listView = view.findViewById(R.id.lista_pelicula);
+        try {
+            View view = inflater.inflate(R.layout.fragment_lista_peliculas, container, false);
+            ListView listView = view.findViewById(R.id.lista_pelicula);
 
-        ArrayList<Pelicula> peliculas = new ObtencionDatos().obtenerListadoPeliculas();
-        PeliculaAdapter adapter = new PeliculaAdapter(getContext(), peliculas);
-        listView.setAdapter(adapter);
+            // Inicializamos un ArrayList vacío y el adaptador
+            ArrayList<Pelicula> peliculas = new ArrayList<>();
+            PeliculaAdapter adapter = new PeliculaAdapter(getContext(), peliculas);
+            listView.setAdapter(adapter);
 
-        listView.setOnItemClickListener((parent, view1, position, id) -> {
-            Pelicula pelicula = (Pelicula) parent.getItemAtPosition(position);
-            listener.OnPeliculasSelecionadasListener(pelicula);
-        });
+            // Cargamos los datos desde el servicio REST
+            try {
+                ServicioREST.obtenerListadoPeliculas(new ServicioREST.PeliculasCallback() {
+                    @Override
+                    public void onSuccess(ArrayList<Pelicula> listaPeliculas) {
+                        // Actualizamos el UI en el hilo principal
+                        if (getActivity() != null) {
+                            getActivity().runOnUiThread(() -> {
+                                try {
+                                    peliculas.clear(); // Limpiamos la lista actual
+                                    peliculas.addAll(listaPeliculas); // Añadimos los nuevos datos
+                                    adapter.notifyDataSetChanged(); // Notificamos al adaptador
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    android.widget.Toast.makeText(getContext(), "Error al actualizar la lista: " + e.getMessage(), android.widget.Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    }
 
-        return view;
+                    @Override
+                    public void onError(String mensaje) {
+                        if (getActivity() != null) {
+                            getActivity().runOnUiThread(() -> {
+                                // Mostramos un mensaje de error
+                                android.widget.Toast.makeText(getContext(), 
+                                    "Error al cargar películas: " + mensaje, 
+                                    android.widget.Toast.LENGTH_SHORT).show();
+                            });
+                        }
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+                android.widget.Toast.makeText(getContext(), 
+                    "Error al conectar con el servicio: " + e.getMessage(), 
+                    android.widget.Toast.LENGTH_SHORT).show();
+            }
+
+            listView.setOnItemClickListener((parent, view1, position, id) -> {
+                Pelicula pelicula = (Pelicula) parent.getItemAtPosition(position);
+                listener.OnPeliculasSelecionadasListener(pelicula);
+            });
+
+            return view;
+        } catch (Exception e) {
+            e.printStackTrace();
+            android.widget.Toast.makeText(getContext(), 
+                "Error general: " + e.getMessage(), 
+                android.widget.Toast.LENGTH_SHORT).show();
+            // Devolvemos una vista vacía en caso de error
+            return new View(getContext());
+        }
     }
 }
 
