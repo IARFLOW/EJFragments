@@ -215,48 +215,17 @@ public class ServicioREST {
         });
     }
 
-    // Metodo auxiliar para convertir Base64 a Bitmap (útil para imágenes)
+    // Método auxiliar para convertir Base64 a Bitmap (útil para imágenes)
     public static android.graphics.Bitmap base64ToBitmap(String base64Str) {
         if (base64Str == null || base64Str.isEmpty()) {
-            Log.e("ServicioREST", "Cadena base64 vacía o nula");
             return null;
         }
         
         try {
-            // Caso especial para Leonardo DiCaprio - devolvemos null para que use la imagen por defecto 
-            if (base64Str.contains("Leonardo") || base64Str.contains("DiCaprio")) {
-                Log.d("ServicioREST", "Detectada cadena de Leonardo DiCaprio - usando tratamiento especial");
-                return null;
-            }
-            
-            // Analizar la cadena base64
-            Log.d("ServicioREST", "Analizando cadena base64 de longitud: " + base64Str.length());
-            
-            // Normalizar la cadena base64 para que sea válida
-            String normalizedStr = base64Str;
-            
-            // 1. Eliminar encabezados si existen (e.g., "data:image/jpeg;base64,")
-            if (normalizedStr.contains(",")) {
-                normalizedStr = normalizedStr.split(",")[1];
-                Log.d("ServicioREST", "Encabezado eliminado de base64");
-            }
-            
-            // 2. Eliminar saltos de línea, espacios y otros caracteres que no son base64
-            normalizedStr = normalizedStr.trim().replaceAll("\\s", "");
-            
-            // 3. Decodificación simple
-            byte[] decodedBytes = android.util.Base64.decode(normalizedStr, android.util.Base64.DEFAULT);
-            android.graphics.Bitmap bitmap = android.graphics.BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
-            
-            if (bitmap != null) {
-                Log.d("ServicioREST", "Bitmap creado correctamente: " + bitmap.getWidth() + "x" + bitmap.getHeight());
-                return bitmap;
-            } else {
-                Log.e("ServicioREST", "No se pudo crear el bitmap");
-                return null;
-            }
+            byte[] decodedBytes = android.util.Base64.decode(base64Str, android.util.Base64.DEFAULT);
+            return android.graphics.BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
         } catch (Exception e) {
-            Log.e("ServicioREST", "Error general al convertir Base64 a Bitmap: " + e.getMessage(), e);
+            android.util.Log.e("ServicioREST", "Error decodificando Base64: " + e.getMessage());
             return null;
         }
     }

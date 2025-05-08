@@ -8,6 +8,11 @@ public class Actor {
     private Date fechaNacimiento;
     private String foto;
 
+    // Constructor vacío para Gson
+    public Actor() {
+        // Necesario para deserialización con Gson
+    }
+
     public Actor(int id, String nombre, Date fechaNacimiento, String foto) {
         this.id = id;
         this.nombre = nombre;
