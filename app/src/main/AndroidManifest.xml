@@ -17,22 +17,15 @@
         <activity
             android:name=".vista.acticidades.MainActivity"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
 
         <activity android:name=".vista.acticidades.VistaPelicula" android:exported="false"/>
         <activity android:name=".vista.acticidades.VistaActor" android:exported="false"/>
-        <activity android:name=".vista.fragmentos.DatosPelicula" android:exported="false"/>
-        <activity android:name=".vista.fragmentos.ListaPeliculas" android:exported="false"/>
         <activity android:name=".vista.acticidades.SeleccionFechaActivity" android:exported="false"/>
-
-
-
+        <activity android:name=".vista.acticidades.ListadoActoresActivity" android:exported="false"/>
     </application>
-
 </manifest>

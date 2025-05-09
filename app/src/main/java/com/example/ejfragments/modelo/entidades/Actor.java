@@ -8,9 +8,7 @@ public class Actor {
     private Date fechaNacimiento;
     private String foto;
 
-    // Constructor vacío para Gson
     public Actor() {
-        // Necesario para deserialización con Gson
     }
 
     public Actor(int id, String nombre, Date fechaNacimiento, String foto) {
@@ -19,7 +17,6 @@ public class Actor {
         this.fechaNacimiento = fechaNacimiento;
         this.foto = foto;
     }
-
 
     public int getId() {
         return id;
@@ -49,7 +46,4 @@ public class Actor {
         return foto;
     }
 
-    public void setFoto(String foto) {
-        this.foto = foto;
-    }
 }

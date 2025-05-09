@@ -8,20 +8,17 @@ public class PeliculaRatingEntity {
     @PrimaryKey
     private int peliculaId;
     private float puntuacion;
-    private Long fechaEmision; // Almacenamos la fecha como Long (timestamp)
+    private Long fechaEmision;
 
-    // Constructor vacío requerido por Room
     public PeliculaRatingEntity() {
     }
 
-    // Constructor con todos los parámetros
     public PeliculaRatingEntity(int peliculaId, float puntuacion, Long fechaEmision) {
         this.peliculaId = peliculaId;
         this.puntuacion = puntuacion;
         this.fechaEmision = fechaEmision;
     }
 
-    // Getters y setters
     public int getPeliculaId() {
         return peliculaId;
     }

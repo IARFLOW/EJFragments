@@ -14,11 +14,9 @@ import com.example.ejfragments.modelo.entidades.PeliculaRatingEntity;
 @Database(entities = {ActorEntity.class, PeliculaRatingEntity.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
-    // Métodos abstractos para acceder a los DAOs
     public abstract ActorDao actorDao();
     public abstract PeliculaRatingDao peliculaRatingDao();
 
-    // Singleton para obtener la instancia de la base de datos
     private static volatile AppDatabase INSTANCE;
 
     public static AppDatabase getInstance(final Context context) {

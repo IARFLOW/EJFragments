@@ -10,14 +10,12 @@ public class ActorEntity {
     @PrimaryKey
     private int id;
     private String nombre;
-    private Long fechaNacimiento; // Almacenamos la fecha como Long (timestamp)
+    private Long fechaNacimiento;
     private String foto;
 
-    // Constructor vacío requerido por Room
     public ActorEntity() {
     }
 
-    // Constructor con todos los parámetros
     public ActorEntity(int id, String nombre, Long fechaNacimiento, String foto) {
         this.id = id;
         this.nombre = nombre;
@@ -25,7 +23,6 @@ public class ActorEntity {
         this.foto = foto;
     }
 
-    // Getters y setters para todos los campos
     public int getId() {
         return id;
     }
@@ -58,9 +55,7 @@ public class ActorEntity {
         this.foto = foto;
     }
 
-    // Metodo para convertir de ActorEntity a Actor (para la UI)
     public Actor toActor() {
-        // Convertimos el timestamp Long a Date
         Date fecha = null;
         if (fechaNacimiento != null) {
             fecha = new Date(fechaNacimiento);
@@ -69,9 +64,7 @@ public class ActorEntity {
         return new Actor(id, nombre, fecha, foto);
     }
 
-    // Metodo estático para convertir de Actor a ActorEntity
     public static ActorEntity fromActor(Actor actor) {
-        // Convertimos Date a timestamp Long
         Long timestamp = null;
         if (actor.getFechaNacimiento() != null) {
             timestamp = actor.getFechaNacimiento().getTime();

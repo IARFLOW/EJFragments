@@ -11,7 +11,6 @@ public class Pelicula {
     private String sinopsis;
     private String genero;
     private String  imagen;
-
     private List<Actor> actores;
 
     public Pelicula(int id, String nombre, Date fecha, String sinopsis, String genero, String imagen, List<Actor> actores) {
@@ -72,25 +71,16 @@ public class Pelicula {
         return sinopsis;
     }
 
-    public void setSinopsis(String sinopsis) {
-        this.sinopsis = sinopsis;
-    }
 
     public String getGenero() {
         return genero;
     }
 
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
 
     public String getImagen() {
         return imagen;
     }
 
-    public void setImagen(String imagen) {
-        this.imagen = imagen;
-    }
 
     public List<Actor> getActores() {
         return actores;

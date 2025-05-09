@@ -7,7 +7,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
@@ -43,14 +42,11 @@ public class MainActivity extends AppCompatActivity implements ListaPeliculas.On
             mostrarListaPeliculas();
         }
 
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-
     }
 
     @Override
@@ -66,7 +62,6 @@ public class MainActivity extends AppCompatActivity implements ListaPeliculas.On
             setToolbarTitle("Listado de Películas");
         }
     }
-
 
     public void setToolbarTitle(String title) {
         if (getSupportActionBar() != null) {
@@ -174,4 +169,3 @@ public class MainActivity extends AppCompatActivity implements ListaPeliculas.On
         }
     }
 }
-

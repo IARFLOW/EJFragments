@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -38,7 +37,6 @@ public class VistaPelicula extends AppCompatActivity {
             return insets;
         });
 
-
         String nombre = getIntent().getStringExtra("nombre");
         String sinopsis = getIntent().getStringExtra("sinopsis");
         String genero = getIntent().getStringExtra("genero");
@@ -46,12 +44,10 @@ public class VistaPelicula extends AppCompatActivity {
         String imagen = getIntent().getStringExtra("imagen");
         int idPelicula = getIntent().getIntExtra("id", -1);
 
-
         DatosPelicula datosPeliculaFragment = DatosPelicula.newInstance(nombre, sinopsis, genero, fecha, imagen, idPelicula);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fcDetallePelicula, datosPeliculaFragment)
                 .commit();
-
     }
 
     @Override
@@ -68,10 +64,8 @@ public class VistaPelicula extends AppCompatActivity {
             intent.putExtra("mostrar", "peliculas");
             startActivity(intent);
             return true;
-
         } else if (id == R.id.menu_salir) {
             finishAffinity(); 
-
         } else if (id == android.R.id.home) {
             finish();
             return true;
@@ -80,12 +74,9 @@ public class VistaPelicula extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_acciones, menu);
         return true;
     }
-
-
 }

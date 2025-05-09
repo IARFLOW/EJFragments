@@ -4,15 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- ProgressBar mientras carga los datos -->
-    <ProgressBar
-        android:id="@+id/progressBarActores"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="visible" />
-
-    <!-- Mensaje de estado (sin datos, error, etc.) -->
     <TextView
         android:id="@+id/tvEstadoListaActores"
         android:layout_width="match_parent"
@@ -24,7 +15,6 @@
         android:visibility="gone"
         android:text="Cargando datos..." />
 
-    <!-- ListView con altura ajustada para no solapar con el título -->
     <ListView
         android:id="@+id/lista_actores"
         android:layout_width="match_parent"
